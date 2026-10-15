@@ -27,7 +27,7 @@ app.post("/api/chat", async (req, res) => {
     }
 
     const response = await client.chat.completions.create({
-      model: "mistral-small-latest",
+      model: "mistral-small-2603",
       messages: [
         {
           role: "system",
