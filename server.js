@@ -7,7 +7,8 @@ app.use(express.json());
 app.use(express.static("public"));
 
 const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: process.env.MISTRAL_API_KEY,
+  baseURL: "https://api.mistral.ai/v1"
 });
 
 app.get("/api/status", (req, res) => {
