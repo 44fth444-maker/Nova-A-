@@ -1,1 +1,67 @@
 
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOVA AI</title>
+<style>
+body{margin:0;background:#0b1020;color:white;font-family:Arial,sans-serif}
+header{text-align:center;padding:20px;background:#151d35;color:#8b9dff}
+#chat{height:65vh;overflow-y:auto;padding:15px}
+.msg{padding:12px;margin:10px 0;border-radius:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.bot{background:#1b2745;margin-right:10%}
+.user{background:#4858bb;margin-left:10%}
+form{position:fixed;bottom:0;left:0;right:0;display:flex;gap:8px;padding:12px;background:#151d35}
+input{flex:1;min-width:0;padding:13px;border-radius:10px;border:1px solid #39466b;background:#0b1020;color:white;font-size:16px}
+button{border:0;border-radius:10px;padding:12px;background:#7185ff;color:white}
+</style>
+</head>
+<body>
+<header><h2>✦ NOVA AI</h2><div>Kişisel yapay zekân</div></header>
+<div id="chat"><div class="msg bot">Selam kanka! 😎 Ben NOVA AI. Ne konuşalım?</div></div>
+<form id="form">
+<input id="message" placeholder="Mesajını yaz..." autocomplete="off" required>
+<button id="send">Gönder</button>
+</form>
+<script>
+const chat=document.getElementById("chat");
+const form=document.getElementById("form");
+const input=document.getElementById("message");
+const send=document.getElementById("send");
+
+form.addEventListener("submit",async e=>{
+e.preventDefault();
+const message=input.value.trim();
+if(!message)return;
+add(message,"user");
+input.value="";
+send.disabled=true;
+const loading=add("Düşünüyorum...","bot");
+try{
+const r=await fetch("/api/chat",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({message})
+});
+const data=await r.json();
+loading.textContent=data.reply||data.error||"Yanıt alınamadı.";
+}catch(err){
+loading.textContent="Sunucuya bağlanamadım.";
+}
+send.disabled=false;
+input.focus();
+});
+
+function add(text,type){
+const el=document.createElement("div");
+el.className="msg "+type;
+el.textContent=text;
+chat.appendChild(el);
+chat.scrollTop=chat.scrollHeight;
+return el;
+}
+</script>
+</body>
+</html>
+
