@@ -1,3 +1,4 @@
+
 const express = require("express");
 const OpenAI = require("openai");
 require("dotenv").config();
@@ -26,7 +27,7 @@ app.post("/api/chat", async (req, res) => {
     }
 
     const response = await client.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "mistral-small-latest",
       messages: [
         {
           role: "system",
@@ -40,15 +41,15 @@ app.post("/api/chat", async (req, res) => {
       reply: response.choices[0].message.content
     });
   } catch (error) {
-    console.error("NOVA AI hatası:", error.message);
+    console.error("Mistral API hatası:", error.message);
     res.status(500).json({
-      error: "Yapay zekâ yanıt veremedi. Sunucu ayarlarını kontrol et."
+      error: "Yapay zekâ yanıt veremedi. Render Logs bölümünü kontrol et."
     });
   }
 });
 
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`NOVA AI ${PORT} portunda çalışıyor.`);
 });
+
