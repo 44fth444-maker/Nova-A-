@@ -47,7 +47,7 @@ body:JSON.stringify({message})
 const data=await r.json();
 loading.textContent=data.reply||data.error||"Yanıt alınamadı.";
 }catch(err){
-loading.textContent="Sunucuya bağlanamadım.";
+loading.textContent="Bağlantı hatası: "+err.message;
 }
 send.disabled=false;
 input.focus();
