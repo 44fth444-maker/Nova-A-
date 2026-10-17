@@ -35,3 +35,31 @@ onAuthStateChanged(auth, user => {
 window.novaGoogleLogin = () => signInWithRedirect(auth, provider);
 window.novaLogout = () => signOut(auth);
 
+
+const loginButton = document.createElement("button");
+loginButton.id = "google-login";
+loginButton.textContent = "Google ile giriş yap";
+loginButton.style.cssText =
+  "position:fixed;top:12px;right:12px;z-index:9999;padding:10px 14px;border:1px solid #ddd;border-radius:20px;background:#fff;color:#111;font-weight:600;";
+
+document.body.appendChild(loginButton);
+
+loginButton.addEventListener("click", async () => {
+  loginButton.textContent = "Google açılıyor...";
+  loginButton.disabled = true;
+
+  try {
+    await window.novaGoogleLogin();
+  } catch (error) {
+    alert("Giriş hatası: " + error.message);
+    loginButton.textContent = "Google ile giriş yap";
+    loginButton.disabled = false;
+  }
+});
+
+document.addEventListener("nova-auth-changed", () => {
+  if (window.novaUser) {
+    loginButton.textContent = window.novaUser.displayName || "Giriş yapıldı";
+    loginButton.disabled = true;
+  }
+});
