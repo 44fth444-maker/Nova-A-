@@ -63,3 +63,4 @@ document.addEventListener("nova-auth-changed", () => {
     loginButton.disabled = true;
   }
 });
+
