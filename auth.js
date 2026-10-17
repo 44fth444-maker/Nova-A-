@@ -11,10 +11,10 @@ import {
 
 // Firebase Console > Project settings > Your apps > Web app
 const firebaseConfig = {
-  apiKey: "BURAYA_API_KEY",
-  authDomain: "BURAYA_AUTH_DOMAIN",
+  apiKey: "AIzaSyCDHZAMxXMn8cpO_EaDpke7otBl_MeWBQY",
+  authDomain: "nova-ai-2f655.firebaseapp.com",
   projectId: "nova-ai-2f655",
-  appId: "BURAYA_APP_ID"
+  appId: "1:225057696784:web:fd9209e31a1a2c7773ae95"
 };
 
 const app = initializeApp(firebaseConfig);
